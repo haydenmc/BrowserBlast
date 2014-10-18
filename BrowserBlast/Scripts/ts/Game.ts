@@ -26,6 +26,7 @@
 
 		var newNode = <HTMLElement>window.document.body.cloneNode(true);
 		window.document.body.parentNode.replaceChild(newNode, window.document.body);
+
 		var listOfLinks = window.document.getElementsByTagName("a");
 		console.dir(listOfLinks);
 		for (var i = 0; i < listOfLinks.length; i++)
@@ -40,6 +41,21 @@
 				
 				link.addEventListener("click", () => { this.killElement(link); }, false);
 			})(listOfLinks[i]);
+		}
+
+		var listOfImages = window.document.getElementsByTagName("img");
+		for (var i = 0; i < listOfImages.length; i++)
+		{
+			((image: HTMLElement) =>
+			{
+				//link.attributes["href"] = "";
+				image.setAttribute("href", "#");
+				image.setAttribute("target", "");
+				//var newLink = <HTMLElement> link.cloneNode(true);
+				//newLink.parentNode.replaceChild(newLink, link);
+
+				image.addEventListener("click", () => { this.killElement(image); }, false);
+			})(listOfImages[i]);
 		}
 	}
 
