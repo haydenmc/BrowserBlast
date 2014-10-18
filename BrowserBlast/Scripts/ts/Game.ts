@@ -34,6 +34,7 @@
 			{
 				//link.attributes["href"] = "";
 				link.setAttribute("href", "#");
+				link.setAttribute("target", "");
 				//var newLink = <HTMLElement> link.cloneNode(true);
 				//newLink.parentNode.replaceChild(newLink, link);
 				
