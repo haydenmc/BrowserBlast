@@ -16,6 +16,7 @@ namespace BrowserBlast
 
 			bundles.Add(new ScriptBundle("~/bundles/ts").Include(
 				"~/Scripts/ts/Game.js",
+				"~/Scripts/ts/GameHub.js",
 				"~/Scripts/ts/Pointer.js"
 				));
 

@@ -22,4 +22,11 @@
 		this.element.style.left = this.x + "px";
 		this.element.style.top = this.y + "px";
 	}
+
+	/**
+	 * Destroys this pointer element
+	 */
+	public destroy(): void {
+		this.element.parentElement.removeChild(this.element);
+	}
 } 
