@@ -19,8 +19,31 @@
 		}, 32);
 	}
 
-	public processIFrame(node: Node) {
-		console.dir(node);
+	public processIFrame(window: Window) {
+		console.dir(window.document);
+
+		var newNode = <HTMLElement>window.document.body.cloneNode(true);
+		window.document.body.parentNode.replaceChild(newNode, window.document.body);
+		var listOfLinks = window.document.getElementsByTagName("a");
+		console.dir(listOfLinks);
+		for (var i = 0; i < listOfLinks.length; i++)
+		{
+			((link: HTMLElement) =>
+			{
+				//link.attributes["href"] = "";
+				link.setAttribute("href", "#");
+				//var newLink = <HTMLElement> link.cloneNode(true);
+				//newLink.parentNode.replaceChild(newLink, link);
+				
+				link.addEventListener("click", () => { this.killElement(link); }, false);
+			})(listOfLinks[i]);
+		}
+	}
+
+	public killElement(link: HTMLElement)
+	{
+		console.log("worked");
+		link.parentElement.removeChild(link);
 	}
 
 	public updateMyPointer() {

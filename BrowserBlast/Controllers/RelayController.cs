@@ -30,7 +30,7 @@ namespace BrowserBlast.Controllers
 			var headNode = root.SelectSingleNode("//head");
 			var scriptNode = doc.CreateElement("script");
 			scriptNode.Attributes.Add("type", "text/javascript");
-			scriptNode.InnerHtml = "parent.Game.instance.processIFrame(window.document);";
+			scriptNode.InnerHtml = "window.onload = function() { parent.Game.instance.processIFrame(window); };";
 			headNode.AppendChild(scriptNode);
 
 			// Replace paths of all images to be absolute.
