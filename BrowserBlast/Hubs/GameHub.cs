@@ -12,6 +12,10 @@ namespace BrowserBlast.Hubs
 		private static List<string> ConnectionIds = new List<string>();
 		public override Task OnConnected()
 		{
+			foreach (var connection in ConnectionIds)
+			{
+				Clients.Client(Context.ConnectionId).addPointer(connection);
+			}
 			ConnectionIds.Add(Context.ConnectionId);
 			Clients.AllExcept(Context.ConnectionId).addPointer(Context.ConnectionId);
 			return base.OnConnected();
@@ -26,6 +30,10 @@ namespace BrowserBlast.Hubs
 		{
 			if (!ConnectionIds.Contains(Context.ConnectionId))
 			{
+				foreach (var connection in ConnectionIds)
+				{
+					Clients.Client(Context.ConnectionId).addPointer(connection);
+				}
 				ConnectionIds.Add(Context.ConnectionId);
 				Clients.AllExcept(Context.ConnectionId).addPointer(Context.ConnectionId);
 			}

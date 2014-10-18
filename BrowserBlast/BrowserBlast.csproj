@@ -216,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\ts\Game.ts" />
+    <TypeScriptCompile Include="Scripts\ts\GameHub.ts" />
     <TypeScriptCompile Include="Scripts\ts\Pointer.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\signalr\signalr.d.ts" />
