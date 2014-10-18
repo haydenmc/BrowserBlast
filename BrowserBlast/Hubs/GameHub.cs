@@ -11,6 +11,7 @@ namespace BrowserBlast.Hubs
 		public void Hello()
 		{
 			Clients.All.hello();
+			
 		}
 	}
 }
