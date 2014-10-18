@@ -15,7 +15,9 @@ namespace BrowserBlast
 				"~/Scripts/jquery.signalR-2.1.2.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/ts").Include(
-				"~/Scripts/ts/Game.js"));
+				"~/Scripts/ts/Game.js",
+				"~/Scripts/ts/Pointer.js"
+				));
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 				 "~/Content/bootstrap.css",
@@ -23,7 +25,7 @@ namespace BrowserBlast
 
 			// Set EnableOptimizations to false for debugging. For more information,
 			// visit http://go.microsoft.com/fwlink/?LinkId=301862
-#if DEBUG
+#if !DEBUG
 			BundleTable.EnableOptimizations = true;
 #endif
 		}
