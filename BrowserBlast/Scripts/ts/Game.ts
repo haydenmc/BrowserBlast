@@ -1,5 +1,6 @@
 ﻿class Game {
 	public static instance: Game;
+	public iframe: HTMLIFrameElement;
 	private pointers: { [connectionId: string]: Pointer } = {};
 	private hub: GameHub;
 	private mouseUpdateIntervalHandle: number;
@@ -14,6 +15,7 @@
 			this.mouseY = e.pageY;
 		};
 		this.hub.connect();
+		this.iframe = document.getElementsByTagName("iframe")[0];
 		this.mouseUpdateIntervalHandle = setInterval(() => {
 			this.updateMyPointer();
 		}, 32);
@@ -61,7 +63,7 @@
 		if (typeof this.pointers[connectionId] !== 'undefined') {
 			this.pointers[connectionId].destroy();
 		}
-		this.pointers[connectionId] = new Pointer();
+		this.pointers[connectionId] = new Pointer(this);
 		return true;
 	}
 
