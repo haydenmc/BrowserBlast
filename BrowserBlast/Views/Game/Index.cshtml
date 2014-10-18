@@ -12,8 +12,9 @@
 </head>
 <body>
     <div class="gameContainer">
-		<iframe class="gameFrame" src="http://bing.com/"></iframe>
+		<iframe class="gameFrame"></iframe>
 	</div>
+	<button onclick="document.getElementsByTagName('iframe')[0].src='/Relay/google.com';">PRESS ME</button>
 
 	@Scripts.Render("~/bundles/js")
 	@Scripts.Render("~/bundles/ts")

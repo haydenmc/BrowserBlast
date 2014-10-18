@@ -1,4 +1,5 @@
 ﻿class Game {
+	public static instance: Game;
 	private pointers: { [connectionId: string]: Pointer } = {};
 	private hub: GameHub;
 	private mouseUpdateIntervalHandle: number;
@@ -6,6 +7,7 @@
 	private mouseY: number;
 
 	constructor() {
+		Game.instance = this;
 		this.hub = new GameHub(this);
 		window.onmousemove = (e) => {
 			this.mouseX = e.pageX;
@@ -15,6 +17,10 @@
 		this.mouseUpdateIntervalHandle = setInterval(() => {
 			this.updateMyPointer();
 		}, 32);
+	}
+
+	public processIFrame(node: Node) {
+		console.dir(node);
 	}
 
 	public updateMyPointer() {
