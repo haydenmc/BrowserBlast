@@ -16,8 +16,6 @@ class GameHub {
 	}
 
 	public connect() {
-		console.log("DING!");
-		$.connection.hub.logging = true;
 		$.connection.hub.start().done(() => {
 			this.ready = true;
 		});
@@ -33,7 +31,6 @@ class GameHub {
 	}
 
 	public updatePointer(connectionId: string, x: number, y: number) {
-		console.log("update received");
 		this.game.updatePointerPosition(connectionId,x, y);
 	}
 

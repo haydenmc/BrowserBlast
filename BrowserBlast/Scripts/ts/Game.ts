@@ -14,14 +14,13 @@
 		this.hub.connect();
 		this.mouseUpdateIntervalHandle = setInterval(() => {
 			this.updateMyPointer();
-		}, 32);
+		}, 100);
 	}
 
 	public processIFrame(node: Node) {
 		node.addEventListener("mousemove", (e: MouseEvent) => {
 			this.mouseX = e.clientX;
 			this.mouseY = e.clientY;
-			console.log("MOUSE MOVE (" + e.clientX + ", " + e.clientY + ")");
 		});
 		console.dir(node);
 	}
@@ -31,15 +30,14 @@
 	}
 
 	public updatePointerPosition(connectionId: string, x: number, y: number) {
-		console.log("update received");
 		var ptr = this.pointers[connectionId];
-		if (typeof ptr !== 'undefined') {
+		if (ptr != null) {
 			ptr.updatePosition(x, y);
 		}
 	}
 
 	public addPointer(connectionId: string): boolean {
-		if (typeof this.pointers[connectionId] !== 'undefined') {
+		if (this.pointers[connectionId] != null) {
 			this.pointers[connectionId].destroy();
 		}
 		this.pointers[connectionId] = new Pointer(this);
