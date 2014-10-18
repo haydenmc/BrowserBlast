@@ -35,14 +35,16 @@ namespace BrowserBlast.Controllers
 
 			// Replace paths of all images to be absolute.
 			var imageNodes = root.SelectNodes("//img");
-			foreach (var imageNode in imageNodes)
-			{
-				if (imageNode.Attributes.Contains("src") && 
-					!imageNode.Attributes["src"].Value.Substring(0, 4).ToLower().Equals("http") && 
-					!imageNode.Attributes["src"].Value.Substring(0, 2).ToLower().Equals("//") && 
-					!imageNode.Attributes["src"].Value.Substring(0, 4).ToLower().Equals("data") )
+			if (imageNodes != null) { 
+				foreach (var imageNode in imageNodes)
 				{
-					imageNode.Attributes["src"].Value = "http://" + url + "/" + imageNode.Attributes["src"].Value;
+					if (imageNode.Attributes.Contains("src") && 
+						!imageNode.Attributes["src"].Value.Substring(0, 4).ToLower().Equals("http") && 
+						!imageNode.Attributes["src"].Value.Substring(0, 2).ToLower().Equals("//") && 
+						!imageNode.Attributes["src"].Value.Substring(0, 4).ToLower().Equals("data") )
+					{
+						imageNode.Attributes["src"].Value = "http://" + url + "/" + imageNode.Attributes["src"].Value;
+					}
 				}
 			}
 
