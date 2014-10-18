@@ -15,9 +15,9 @@ namespace BrowserBlast.Controllers
         {
 			//bla bla bla hayden smells
             //TODO: check valid url
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(url);                       
-            return View(doc);
+			HtmlWeb web = new HtmlWeb();
+			HtmlDocument doc = web.Load("http://" + url);
+            return Content(doc.DocumentNode.OuterHtml);
         }
     }
 }
