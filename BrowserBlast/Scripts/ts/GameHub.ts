@@ -31,7 +31,7 @@ class GameHub {
 	}
 
 	public updatePointer(connectionId: string, x: number, y: number) {
-		this.game.getPointerById(connectionId).updatePosition(x, y);
+		this.game.updatePointerPosition(connectionId,x, y);
 	}
 
 	/* Server-side methods */

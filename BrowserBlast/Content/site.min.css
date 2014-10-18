@@ -1,1 +1,1 @@
-﻿img.pointer{position:absolute}
+﻿img.pointer{position:absolute;transition:top linear 10ms,left linear 10ms}
