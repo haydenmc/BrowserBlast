@@ -13,10 +13,15 @@ namespace BrowserBlast.Controllers
         // GET: Relay
         public ActionResult Index(String url)
         {
-			//bla bla bla hayden smells
+			//bla bla bla darren still smells
             //TODO: check valid url
 			HtmlWeb web = new HtmlWeb();
 			HtmlDocument doc = web.Load("http://" + url);
+			var headNode = doc.DocumentNode.SelectSingleNode("//head");
+			var scriptNode = doc.CreateElement("script");
+			scriptNode.Attributes.Add("type", "text/javascript");
+			scriptNode.InnerHtml = "alert('shittles');";
+			headNode.AppendChild(scriptNode);
             return Content(doc.DocumentNode.OuterHtml);
         }
     }
