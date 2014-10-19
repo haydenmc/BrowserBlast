@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+	@Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="gameContainer">
+		<iframe scrolling="no" class="gameFrame"></iframe>
+	</div>
+	@Scripts.Render("~/bundles/js")
+	@Scripts.Render("~/bundles/ts")
+	<script src="~/signalr/hubs"></script>
+</body>
+</html>
