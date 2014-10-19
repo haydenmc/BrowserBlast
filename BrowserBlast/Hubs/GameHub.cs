@@ -5,21 +5,48 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using System.Timers;
 
 namespace BrowserBlast.Hubs
 {
 	public class GameHub : Hub
 	{
-		private static readonly string[] LevelUrls = new string[] { "http://cnn.com", "http://reddit.com" };
+		private static readonly string[] LevelUrls = new string[] { "http://cnn.com", "http://reddit.com", "http://en.wikipedia.org/wiki/Main_Page", "http://www.purdue.edu" };
 		private static int CurrentLevelIndex = -1;
 		private static List<string> ConnectionIds = new List<string>();
 		public static HtmlNode CurrentPage { get; protected set; }
-		public override Task OnConnected()
+		private void _NextLevel()
 		{
 			if (CurrentLevelIndex < 0)
 			{
 				CurrentLevelIndex = 0;
-				LoadLevel();
+			}
+			else
+			{
+				CurrentLevelIndex++;
+				if (CurrentLevelIndex >= LevelUrls.Length)
+				{
+					CurrentLevelIndex = 0;
+				}
+			}
+			LoadLevel();
+
+			// Create a timer with a five second interval.
+			var turnTimer = new System.Timers.Timer(30 * 1000);
+			turnTimer.AutoReset = false;
+
+			// Hook up the Elapsed event for the timer.
+			turnTimer.Elapsed += new ElapsedEventHandler((o, e) =>
+			{
+				_NextLevel();
+			});
+			turnTimer.Enabled = true;
+		}
+		public override Task OnConnected()
+		{
+			if (CurrentLevelIndex < 0)
+			{
+				_NextLevel();
 			}
 			else
 			{
