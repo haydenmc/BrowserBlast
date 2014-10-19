@@ -11,14 +11,39 @@ namespace BrowserBlast.Hubs
 {
 	public class GameHub : Hub
 	{
-		private static readonly string[] LevelUrls = new string[] { "http://cnn.com", "http://reddit.com", "http://en.wikipedia.org/wiki/Main_Page", "http://www.purdue.edu" };
+		private static string[] LevelUrls = new string[] { 
+			"http://cnn.com",
+			"http://reddit.com", 
+			"http://en.wikipedia.org/wiki/Main_Page", 
+			"http://www.purdue.edu",
+			"http://www.theverge.com",
+			"http://www.msn.com",
+			"http://espn.go.com",
+			"http://imgur.com",
+			"http://stackoverflow.com",
+			"http://tippecanoe.craigslist.org"
+		};
 		private static int CurrentLevelIndex = -1;
 		private static List<string> ConnectionIds = new List<string>();
 		public static HtmlNode CurrentPage { get; protected set; }
 		private void _NextLevel()
 		{
+			// Create a timer with a five second interval.
+			var turnTimer = new System.Timers.Timer(30 * 1000);
+			turnTimer.AutoReset = false;
+
+			// Hook up the Elapsed event for the timer.
+			turnTimer.Elapsed += new ElapsedEventHandler((o, e) =>
+			{
+				_NextLevel();
+			});
+			turnTimer.Enabled = true;
+
 			if (CurrentLevelIndex < 0)
 			{
+				// Shuffle the URLs
+				var rnd = new Random();
+				LevelUrls = LevelUrls.OrderBy(x => rnd.Next()).ToArray();
 				CurrentLevelIndex = 0;
 			}
 			else
@@ -30,17 +55,6 @@ namespace BrowserBlast.Hubs
 				}
 			}
 			LoadLevel();
-
-			// Create a timer with a five second interval.
-			var turnTimer = new System.Timers.Timer(30 * 1000);
-			turnTimer.AutoReset = false;
-
-			// Hook up the Elapsed event for the timer.
-			turnTimer.Elapsed += new ElapsedEventHandler((o, e) =>
-			{
-				_NextLevel();
-			});
-			turnTimer.Enabled = true;
 		}
 		public override Task OnConnected()
 		{
