@@ -29,7 +29,7 @@
 			this.mouseY = e.clientY;
 		});
 
-        var list: Array<string> = ["a", "img", "p", "h1", "h2", "h3", "h4", "button", "input", "li", "select"];
+        var list: Array<string> = ["a", "img", "p", "h1", "h2", "h3", "h4", "h5", "h6", "button", "input", "li", "select"];
         for (var j = 0; j < list.length; j++)
         {
             var listOfLinks = window.document.getElementsByTagName(list[j]);
