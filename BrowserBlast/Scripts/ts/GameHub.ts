@@ -13,6 +13,7 @@ class GameHub {
 		this.hub.client.addPointer = (connectionId: string) => { this.addPointer(connectionId); };
 		this.hub.client.removePointer = (connectionId: string) => { this.removePointer(connectionId); };
 		this.hub.client.updatePointer = (connectionId: string, x: number, y: number) => { this.updatePointer(connectionId, x, y); };
+		this.hub.client.loadLevel = () => { this.loadLevel(); };
 	}
 
 	public connect() {
@@ -32,6 +33,10 @@ class GameHub {
 
 	public updatePointer(connectionId: string, x: number, y: number) {
 		this.game.updatePointerPosition(connectionId,x, y);
+	}
+
+	public loadLevel(): void {
+		this.game.iframe.src = "/Relay";
 	}
 
 	/* Server-side methods */

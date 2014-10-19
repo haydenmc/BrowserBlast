@@ -13,11 +13,11 @@ namespace BrowserBlast
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.RouteExistingFiles = false;
-			routes.MapRoute(
-				name: "Relay",
-				url: "Relay/{url}",
-				defaults: new { controller = "Relay", action = "Index" }
-			);
+			//routes.MapRoute(
+			//	name: "Relay",
+			//	url: "Relay/{url}",
+			//	defaults: new { controller = "Relay", action = "Index" }
+			//);
 
 			routes.MapRoute(
 				name: "Default",

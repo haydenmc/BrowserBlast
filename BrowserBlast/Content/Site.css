@@ -1,6 +1,5 @@
 ﻿img.pointer {
   position: absolute;
-  transition: top linear 80ms, left linear 80ms;
 }
 div.gameContainer {
   position: absolute;

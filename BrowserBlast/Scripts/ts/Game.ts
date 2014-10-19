@@ -10,22 +10,24 @@
 	constructor() {
 		Game.instance = this;
 		this.hub = new GameHub(this);
-		window.onmousemove = (e) => {
-			this.mouseX = e.pageX;
-			this.mouseY = e.pageY;
-		};
 		this.hub.connect();
 		this.iframe = document.getElementsByTagName("iframe")[0];
 		this.mouseUpdateIntervalHandle = setInterval(() => {
 			this.updateMyPointer();
-		}, 32);
+		}, 100);
 	}
 
 	public processIFrame(window: Window) {
 		console.dir(window.document);
 
 		var newNode = <HTMLElement>window.document.body.cloneNode(true);
-        window.document.body.parentNode.replaceChild(newNode, window.document.body);
+		window.document.body.parentNode.replaceChild(newNode, window.document.body);
+
+		window.document.addEventListener("mousemove", (e: MouseEvent) => {
+			this.mouseX = e.clientX;
+			this.mouseY = e.clientY;
+		});
+
         var list: Array<string> = ["a", "img", "p", "h1", "h2","h3", "button", "input", "li"];
         for (var j = 0; j < 8; j++)
         {
