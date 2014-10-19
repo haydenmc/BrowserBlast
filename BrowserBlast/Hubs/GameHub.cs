@@ -10,10 +10,10 @@ namespace BrowserBlast.Hubs
 {
 	public class GameHub : Hub
 	{
-		private static readonly string[] LevelUrls = new string[] { "http://reddit.com", "http://cnn.com/" };
+		private static readonly string[] LevelUrls = new string[] { "http://reddit.com", "http://cnn.com" };
 		private static int CurrentLevelIndex = -1;
 		private static List<string> ConnectionIds = new List<string>();
-		public static HtmlNode CurrentPage { get; private set; }
+		public static HtmlNode CurrentPage { get; protected set; }
 		public override Task OnConnected()
 		{
 			if (CurrentLevelIndex < 0)
@@ -62,7 +62,7 @@ namespace BrowserBlast.Hubs
 			var node = CurrentPage.SelectSingleNode("//*[@id='" + id + "']");
 			if (node != null)
 			{
-				node.Remove();
+				node.ParentNode.RemoveChild(node);
 			}
 			Clients.AllExcept(Context.ConnectionId).killElement(id);
 		}
@@ -145,7 +145,7 @@ namespace BrowserBlast.Hubs
 						!imageNode.Attributes["src"].Value.Substring(0, 2).ToLower().Equals("//") &&
 						!imageNode.Attributes["src"].Value.Substring(0, 4).ToLower().Equals("data"))
 					{
-						imageNode.Attributes["src"].Value = "http://" + url + "/" + imageNode.Attributes["src"].Value;
+						imageNode.Attributes["src"].Value = url + "/" + imageNode.Attributes["src"].Value;
 					}
 				}
 			}
