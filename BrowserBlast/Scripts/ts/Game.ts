@@ -1,6 +1,7 @@
 ﻿class Game {
 	public static instance: Game;
 	public iframe: HTMLIFrameElement;
+	private document: Document;
 	private pointers: { [connectionId: string]: Pointer } = {};
 	private hub: GameHub;
 	private mouseUpdateIntervalHandle: number;
@@ -23,7 +24,7 @@
 
 	public processIFrame(window: Window) {
 		console.dir(window.document);
-
+		this.document = window.document;
 		var newNode = <HTMLElement>window.document.body.cloneNode(true);
         window.document.body.parentNode.replaceChild(newNode, window.document.body);
         var list: Array<string> = ["a", "img", "p", "h1", "h2","h3", "button", "input", "li"];
@@ -43,43 +44,18 @@
                 })(listOfLinks[i]);
             }
         }
-        
-		/*var listOfLinks = window.document.getElementsByTagName("a");
-		console.dir(listOfLinks);
-		for (var i = 0; i < listOfLinks.length; i++)
-		{
-			((link: HTMLElement) =>
-			{
-				//link.attributes["href"] = "";
-				link.setAttribute("href", "javascript:;");
-				link.setAttribute("target", "");
-				//var newLink = <HTMLElement> link.cloneNode(true);
-				//newLink.parentNode.replaceChild(newLink, link);
-				
-				link.addEventListener("click", () => { this.killElement(link); }, false);
-			})(listOfLinks[i]);
-		}
-
-		var listOfImages = window.document.getElementsByTagName("img");
-		for (var i = 0; i < listOfImages.length; i++)
-		{
-			((image: HTMLElement) =>
-			{
-				//link.attributes["href"] = "";
-				image.setAttribute("href", "#");
-				image.setAttribute("target", "");
-				//var newLink = <HTMLElement> link.cloneNode(true);
-				//newLink.parentNode.replaceChild(newLink, link);
-
-				image.addEventListener("click", () => { this.killElement(image); }, false);
-			})(listOfImages[i]);
-		}*/
 	}
 
 	public killElement(link: HTMLElement)
 	{
 		console.log("worked");
 		link.parentElement.removeChild(link);
+	}
+
+	public killElementById(id: string)
+	{
+		var toBeDeleted = this.document.getElementById(id);
+		toBeDeleted.parentElement.removeChild(toBeDeleted);
 	}
 
 	public updateMyPointer() {
