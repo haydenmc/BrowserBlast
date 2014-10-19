@@ -25,9 +25,26 @@
 		console.dir(window.document);
 
 		var newNode = <HTMLElement>window.document.body.cloneNode(true);
-		window.document.body.parentNode.replaceChild(newNode, window.document.body);
+        window.document.body.parentNode.replaceChild(newNode, window.document.body);
+        var list: Array<string> = ["a", "img", "p", "h1", "h2","h3", "button", "input", "li"];
+        for (var j = 0; j < 8; j++)
+        {
+            var listOfLinks = window.document.getElementsByTagName(list[j]);
+            console.dir(listOfLinks);
+            for (var i = 0; i < listOfLinks.length; i++) {
+                ((link: Node) => {
+                    //link.attributes["href"] = "";
+                    (<HTMLElement>link).setAttribute("href", "javascript:;");
+                    (<HTMLElement>link).setAttribute("target", "");
+                    //var newLink = <HTMLElement> link.cloneNode(true);
+                    //newLink.parentNode.replaceChild(newLink, link);
 
-		var listOfLinks = window.document.getElementsByTagName("a");
+                    (<HTMLElement>link).addEventListener("click", () => { this.killElement(<HTMLElement>link); }, false);
+                })(listOfLinks[i]);
+            }
+        }
+        
+		/*var listOfLinks = window.document.getElementsByTagName("a");
 		console.dir(listOfLinks);
 		for (var i = 0; i < listOfLinks.length; i++)
 		{
@@ -56,7 +73,7 @@
 
 				image.addEventListener("click", () => { this.killElement(image); }, false);
 			})(listOfImages[i]);
-		}
+		}*/
 	}
 
 	public killElement(link: HTMLElement)
