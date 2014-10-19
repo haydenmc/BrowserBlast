@@ -10,7 +10,7 @@ namespace BrowserBlast.Hubs
 {
 	public class GameHub : Hub
 	{
-		private static readonly string[] LevelUrls = new string[] { "http://reddit.com", "http://cnn.com" };
+		private static readonly string[] LevelUrls = new string[] { "http://cnn.com", "http://reddit.com" };
 		private static int CurrentLevelIndex = -1;
 		private static List<string> ConnectionIds = new List<string>();
 		public static HtmlNode CurrentPage { get; protected set; }
@@ -83,16 +83,22 @@ namespace BrowserBlast.Hubs
 
 			// Kill all of the JS
 			var jsNodes = root.SelectNodes("//script");
-			foreach (var jsNode in jsNodes)
+			if (jsNodes != null)
 			{
-				jsNode.Remove();
+				foreach (var jsNode in jsNodes)
+				{
+					jsNode.Remove();
+				}
 			}
 
 			// Kill any nested iframes
 			var iframeNodes = root.SelectNodes("//iframe");
-			foreach (var iframeNode in iframeNodes)
+			if (iframeNodes != null)
 			{
-				iframeNode.Remove();
+				foreach (var iframeNode in iframeNodes)
+				{
+					iframeNode.Remove();
+				}
 			}
 
 			// Inject JS into the head node
