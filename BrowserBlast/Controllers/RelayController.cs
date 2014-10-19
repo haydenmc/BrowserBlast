@@ -33,9 +33,17 @@ namespace BrowserBlast.Controllers
 			scriptNode.InnerHtml = "window.onload = function() { parent.Game.instance.processIFrame(window); };";
 			headNode.AppendChild(scriptNode);
 
+			// Kill all of the links
+			var linkNodes = root.SelectNodes("//a");
+			foreach (var linkNode in linkNodes)
+			{
+				linkNode.Attributes["href"].Value = "javascript:;";
+			}
+
 			// Replace paths of all images to be absolute.
 			var imageNodes = root.SelectNodes("//img");
-			if (imageNodes != null) { 
+			if (imageNodes != null) 
+			{
 				foreach (var imageNode in imageNodes)
 				{
 					if (imageNode.Attributes.Contains("src") && 
