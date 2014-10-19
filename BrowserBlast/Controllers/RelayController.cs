@@ -37,7 +37,24 @@ namespace BrowserBlast.Controllers
 			var linkNodes = root.SelectNodes("//a");
 			foreach (var linkNode in linkNodes)
 			{
-				linkNode.Attributes["href"].Value = "javascript:;";
+				if (linkNode.Attributes["href"] != null)
+				{
+					linkNode.Attributes["href"].Value = "javascript:;";
+				}
+				else
+				{
+					linkNode.Attributes.Add("href", "javascript:;");
+				}
+			}
+
+			// a, img, p, h1, h2, h3, input, button, li
+			var idNodes = root.SelectNodes("//a | //img | //p | //h1 | //h2 | //h3 | //input | //button | //li");
+			for (int i = 0; i < idNodes.Count; i++)
+			{
+				if (idNodes[i].Attributes["id"] == null || idNodes[i].Attributes["id"].Value.Length <= 0)
+				{
+					idNodes[i].Attributes.Add("id", "BlastElement_" + i);
+				}
 			}
 
 			// Replace paths of all images to be absolute.
