@@ -120,17 +120,35 @@ namespace BrowserBlast.Hubs
 			var idNodes = root.SelectNodes("//a | //img | //p | //h1 | //h2 | //h3 | //input | //button | //li");
 			for (int i = 0; i < idNodes.Count; i++)
 			{
-				if (idNodes[i].Attributes["onclick"] != null)
-				{
-					idNodes[i].Attributes["onclick"].Value = "";
-				}
-				if (idNodes[i].Attributes["onhover"] != null)
-				{
-					idNodes[i].Attributes["onhover"].Value = "";
-				}
 				if (idNodes[i].Attributes["id"] == null || idNodes[i].Attributes["id"].Value.Length <= 0)
 				{
 					idNodes[i].Attributes.Add("id", "BlastElement_" + i);
+				}
+			}
+
+			// Remove onclicks
+			var clickNodes = root.SelectNodes("//*[@onclick]");
+			if (clickNodes != null)
+			{
+				for (int i = 0; i < clickNodes.Count; i++)
+				{
+					if (clickNodes[i].Attributes.Contains("onclick"))
+					{
+						clickNodes[i].Attributes.Remove("onclick");
+					}
+				}
+			}
+
+			// Remove onhover
+			var hoverNodes = root.SelectNodes("//*[@onhover]");
+			if (hoverNodes != null)
+			{
+				for (int i = 0; i < hoverNodes.Count; i++)
+				{
+					if (hoverNodes[i].Attributes.Contains("onhover"))
+					{
+						hoverNodes[i].Attributes.Remove("onhover");
+					}
 				}
 			}
 
