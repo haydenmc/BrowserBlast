@@ -1,1 +1,1 @@
-﻿img.pointer{position:absolute}div.gameContainer{position:absolute;top:64px;left:0;right:0}div.gameContainer iframe.gameFrame{display:block;width:1280px;height:500px;margin:0 auto}
+﻿img.pointer{position:absolute}div.gameContainer{position:absolute;top:64px;left:0;right:0}div.gameContainer iframe.gameFrame{display:block;width:1280px;height:500px;margin:0 auto;overflow:hidden}

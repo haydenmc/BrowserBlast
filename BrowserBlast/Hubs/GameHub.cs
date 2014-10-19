@@ -13,7 +13,7 @@ namespace BrowserBlast.Hubs
 		private static readonly string[] LevelUrls = new string[] { "http://reddit.com", "http://cnn.com/" };
 		private static int CurrentLevelIndex = -1;
 		private static List<string> ConnectionIds = new List<string>();
-		public static string CurrentPage { get; private set; }
+		public static HtmlNode CurrentPage { get; private set; }
 		public override Task OnConnected()
 		{
 			if (CurrentLevelIndex < 0)
@@ -59,6 +59,11 @@ namespace BrowserBlast.Hubs
 
 		public void KillElement(string id)
 		{
+			var node = CurrentPage.SelectSingleNode("//*[@id='" + id + "']");
+			if (node != null)
+			{
+				node.Remove();
+			}
 			Clients.AllExcept(Context.ConnectionId).killElement(id);
 		}
 
@@ -68,7 +73,7 @@ namespace BrowserBlast.Hubs
 			Clients.All.loadLevel();
 		}
 
-		private string _GetWebContent(string url)
+		private HtmlNode _GetWebContent(string url)
 		{
 			//bla bla bla darren still smells
 			//TODO: check valid url
@@ -145,7 +150,7 @@ namespace BrowserBlast.Hubs
 				}
 			}
 
-			return doc.DocumentNode.OuterHtml;
+			return doc.DocumentNode;
 		}
 	}
 }

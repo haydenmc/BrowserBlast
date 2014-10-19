@@ -12,5 +12,6 @@ div.gameContainer iframe.gameFrame {
   width: 1280px;
   height: 500px;
   margin: 0 auto;
+  overflow: hidden;
 }
 /*# sourceMappingURL=site.css.map */

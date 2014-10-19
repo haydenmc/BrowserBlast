@@ -23,7 +23,7 @@
 
 		var newNode = <HTMLElement>window.document.body.cloneNode(true);
 		window.document.body.parentNode.replaceChild(newNode, window.document.body);
-
+		this.document = window.document;
 		window.document.addEventListener("mousemove", (e: MouseEvent) => {
 			this.mouseX = e.clientX;
 			this.mouseY = e.clientY;
@@ -43,13 +43,13 @@
                 })(listOfLinks[i]);
             }
         }
-		}
+	}
 
 	public killElement(link: HTMLElement)
-		{
+	{
 		console.log("worked");
-		link.parentElement.removeChild(link);
 		this.hub.sendKillElement(link.id);
+		link.parentElement.removeChild(link);
 	}
 
 	public killElementById(id: string)

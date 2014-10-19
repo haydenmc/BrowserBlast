@@ -19,7 +19,7 @@ namespace BrowserBlast.Controllers
         // GET: Relay
         public ActionResult Index(String url)
         {
-			return Content(GameHub.CurrentPage);
+			return Content(GameHub.CurrentPage.OuterHtml);
         }
     }
 }
