@@ -158,6 +158,19 @@ namespace BrowserBlast.Hubs
 				}
 			}
 
+			// Remove onhover
+			var changeNodes = root.SelectNodes("//*[@onchange]");
+			if (changeNodes != null)
+			{
+				for (int i = 0; i < changeNodes.Count; i++)
+				{
+					if (changeNodes[i].Attributes.Contains("onchange"))
+					{
+						changeNodes[i].Attributes.Remove("onchange");
+					}
+				}
+			}
+
 			// Replace paths of all images to be absolute.
 			var imageNodes = root.SelectNodes("//img");
 			if (imageNodes != null)
