@@ -123,7 +123,7 @@ namespace BrowserBlast.Hubs
 			}
 
 			// a, img, p, h1, h2, h3, input, button, li
-			var idNodes = root.SelectNodes("//a | //img | //p | //h1 | //h2 | //h3 | //input | //button | //li | //select");
+			var idNodes = root.SelectNodes("//a | //img | //p | //h1 | //h2 | //h3 | //h4 | //h5 | //h6 | //input | //button | //li | //select");
 			for (int i = 0; i < idNodes.Count; i++)
 			{
 				if (idNodes[i].Attributes["id"] == null || idNodes[i].Attributes["id"].Value.Length <= 0)
