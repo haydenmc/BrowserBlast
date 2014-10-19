@@ -57,6 +57,11 @@ namespace BrowserBlast.Hubs
 			Clients.AllExcept(Context.ConnectionId).updatePointer(Context.ConnectionId, newX, newY);
 		}
 
+		public void KillElement(string id)
+		{
+			Clients.AllExcept(Context.ConnectionId).killElement(id);
+		}
+
 		private void LoadLevel()
 		{
 			CurrentPage = _GetWebContent(LevelUrls[CurrentLevelIndex]);

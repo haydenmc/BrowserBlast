@@ -1,6 +1,7 @@
 ﻿class Game {
 	public static instance: Game;
 	public iframe: HTMLIFrameElement;
+	private document: Document;
 	private pointers: { [connectionId: string]: Pointer } = {};
 	private hub: GameHub;
 	private mouseUpdateIntervalHandle: number;
@@ -29,59 +30,32 @@
 		});
 
         var list: Array<string> = ["a", "img", "p", "h1", "h2","h3", "button", "input", "li"];
-        for (var j = 0; j < 8; j++)
+        for (var j = 0; j < list.length; j++)
         {
             var listOfLinks = window.document.getElementsByTagName(list[j]);
             console.dir(listOfLinks);
             for (var i = 0; i < listOfLinks.length; i++) {
                 ((link: Node) => {
-                    //link.attributes["href"] = "";
                     (<HTMLElement>link).setAttribute("href", "javascript:;");
                     (<HTMLElement>link).setAttribute("target", "");
-                    //var newLink = <HTMLElement> link.cloneNode(true);
-                    //newLink.parentNode.replaceChild(newLink, link);
 
                     (<HTMLElement>link).addEventListener("click", () => { this.killElement(<HTMLElement>link); }, false);
                 })(listOfLinks[i]);
             }
         }
-        
-		/*var listOfLinks = window.document.getElementsByTagName("a");
-		console.dir(listOfLinks);
-		for (var i = 0; i < listOfLinks.length; i++)
-		{
-			((link: HTMLElement) =>
-			{
-				//link.attributes["href"] = "";
-				link.setAttribute("href", "javascript:;");
-				link.setAttribute("target", "");
-				//var newLink = <HTMLElement> link.cloneNode(true);
-				//newLink.parentNode.replaceChild(newLink, link);
-				
-				link.addEventListener("click", () => { this.killElement(link); }, false);
-			})(listOfLinks[i]);
 		}
 
-		var listOfImages = window.document.getElementsByTagName("img");
-		for (var i = 0; i < listOfImages.length; i++)
-		{
-			((image: HTMLElement) =>
-			{
-				//link.attributes["href"] = "";
-				image.setAttribute("href", "#");
-				image.setAttribute("target", "");
-				//var newLink = <HTMLElement> link.cloneNode(true);
-				//newLink.parentNode.replaceChild(newLink, link);
-
-				image.addEventListener("click", () => { this.killElement(image); }, false);
-			})(listOfImages[i]);
-		}*/
-	}
-
 	public killElement(link: HTMLElement)
-	{
+		{
 		console.log("worked");
 		link.parentElement.removeChild(link);
+		this.hub.sendKillElement(link.id);
+	}
+
+	public killElementById(id: string)
+	{
+		var toBeDeleted = this.document.getElementById(id);
+		toBeDeleted.parentElement.removeChild(toBeDeleted);
 	}
 
 	public updateMyPointer() {

@@ -14,6 +14,7 @@ class GameHub {
 		this.hub.client.removePointer = (connectionId: string) => { this.removePointer(connectionId); };
 		this.hub.client.updatePointer = (connectionId: string, x: number, y: number) => { this.updatePointer(connectionId, x, y); };
 		this.hub.client.loadLevel = () => { this.loadLevel(); };
+		this.hub.client.killElement = (id: string) => { this.killElement(id); };
 	}
 
 	public connect() {
@@ -39,10 +40,21 @@ class GameHub {
 		this.game.iframe.src = "/Relay";
 	}
 
+	public killElement(id: string): void {
+		console.log("KILL ELEMENT " + id);
+		this.game.killElementById(id);
+	}
+
 	/* Server-side methods */
 	public updateMyPointer(x: number, y: number) {
 		if (this.ready) {
 			this.hub.server.updatePointer(x, y);
+		}
+	}
+
+	public sendKillElement(id: string) {
+		if (this.ready) {
+			this.hub.server.killElement(id);
 		}
 	}
 }
